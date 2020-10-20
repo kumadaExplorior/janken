@@ -4,5 +4,5 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Testdayo : MonoBehaviour
 {
-   [SerializeFeild] Image image;
+   [SerializeField] Image image;
 }
