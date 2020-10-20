@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JankenManagerM : MonoBehaviour
 {
+
     int PlayerJanken = 0;
     int cpuJanken = 0;
 
@@ -32,8 +34,8 @@ public class JankenManagerM : MonoBehaviour
     public void CpuAction()
     {
         cpuJanken = Random.RandomRange(1,4);
-        
-        if(cpuJanken == 1) 
+
+        if (cpuJanken == 1) 
         {
             Debug.Log("cpuJanken" + "グー");
         }
