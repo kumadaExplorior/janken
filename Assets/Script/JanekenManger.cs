@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JanekenManger : MonoBehaviour
 {
@@ -36,13 +37,9 @@ public class JanekenManger : MonoBehaviour
         playerJanken = 3;
         CPUAction();
     }
-
     public void CPUAction()
-    {
-        cpuJanken = Random.RandomRange(1,4);
-
+    { 
         Debug.Log("cpuJanken:" + cpuJanken);
-
         Jurge();
     }
 

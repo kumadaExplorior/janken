@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class JankenManagerM : MonoBehaviour
 {
+    [SerializeField] Image image;
 
     int PlayerJanken = 0;
     int cpuJanken = 0;
@@ -33,6 +34,10 @@ public class JankenManagerM : MonoBehaviour
     }
     public void CpuAction()
     {
+
+        cpuJanken = Random.RandomRange(1, 4);
+        image.sprite = Resources.Load<Sprite>(cpuJanken.Tostring());
+
         cpuJanken = Random.RandomRange(1,4);
 
         if (cpuJanken == 1) 
