@@ -6,25 +6,49 @@ using UnityEngine.UI;
 public class JankenManagerM : MonoBehaviour
 {
     [SerializeField] Image image;
+    [SerializeField] Image souri;
 
     int PlayerJanken = 0;
     int cpuJanken = 0;
 
-    public IEnumerator Test()
+
+   
+    private void Start()
     {
+        Initialized();
+    }
 
+    //初期化　
+    public void Initialized()
+    {
+        //相手のジャンケンは非表示
+        image.gameObject.SetActive(false);
+
+        //敵初期画像
+        souri.sprite = Resources.Load<Sprite>("Souri1");
+    }
+
+    //敵のアニメーション
+    public IEnumerator EnemyAction()
+    {
+        yield return new WaitForSeconds(1f);
+
+        //相手のジャンケン出目
+        cpuJanken = Random.RandomRange(1, 4);
+
+        //敵出目表示
+        image.gameObject.SetActive(true);
+        image.sprite = Resources.Load<Sprite>(cpuJanken.ToString());
+
+        //敵画像変更
+        souri.sprite = Resources.Load<Sprite>("Souri2");
+
+        //ジャンケン判定
+        CpuAction();
+
+        //3秒後にもとに戻す
         yield return new WaitForSeconds(3f);
-
-        image.sprite = Resources.Load<Sprite>(Random.RandomRange(1,4).ToString());
-
-        yield return new WaitForSeconds(2f);
-
-        image.sprite = Resources.Load<Sprite>("Souri1");
-
-        yield return new WaitForSeconds(3f);
-
-        image.sprite = Resources.Load<Sprite>("Souri2");
-
+        Initialized();
     }
 
 
@@ -35,28 +59,24 @@ public class JankenManagerM : MonoBehaviour
     public void GuuButton()
     {
     	Debug.Log("グー");
-        //PlayerJanken = 1;
-        //   CpuAction();
-        StartCoroutine(Test());
+        PlayerJanken = 1;
+        StartCoroutine(EnemyAction());
     }
     public void CyokiButton()
     {
     	Debug.Log("チョキ");
     	PlayerJanken = 2;
-        CpuAction();   
+        StartCoroutine(EnemyAction());
     }  
     public void ParButton()
     {
         Debug.Log("パー");
     	PlayerJanken = 3;
-        CpuAction();
+        StartCoroutine(EnemyAction());
     }
+
     public void CpuAction()
     {
-
-        cpuJanken = Random.RandomRange(1,4);
-        image.sprite = Resources.Load<Sprite>(Random.RandomRange(1, 4).ToString());
-
         if (cpuJanken == 1) 
         {
             Debug.Log("cpuJanken" + "グー");
