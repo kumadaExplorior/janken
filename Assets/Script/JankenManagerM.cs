@@ -10,15 +10,34 @@ public class JankenManagerM : MonoBehaviour
     int PlayerJanken = 0;
     int cpuJanken = 0;
 
-	public void ButtonOshita()
+    public IEnumerator Test()
+    {
+
+        yield return new WaitForSeconds(3f);
+
+        image.sprite = Resources.Load<Sprite>(Random.RandomRange(1,4).ToString());
+
+        yield return new WaitForSeconds(2f);
+
+        image.sprite = Resources.Load<Sprite>("Souri1");
+
+        yield return new WaitForSeconds(3f);
+
+        image.sprite = Resources.Load<Sprite>("Souri2");
+
+    }
+
+
+    public void ButtonOshita()
 	{
 		Debug.Log("押したよ");
 	}
     public void GuuButton()
     {
     	Debug.Log("グー");
-    	PlayerJanken = 1;
-        CpuAction();
+        //PlayerJanken = 1;
+        //   CpuAction();
+        StartCoroutine(Test());
     }
     public void CyokiButton()
     {
@@ -28,17 +47,15 @@ public class JankenManagerM : MonoBehaviour
     }  
     public void ParButton()
     {
-    	Debug.Log("パー");
+        Debug.Log("パー");
     	PlayerJanken = 3;
         CpuAction();
     }
     public void CpuAction()
     {
 
-        cpuJanken = Random.RandomRange(1, 4);
-        image.sprite = Resources.Load<Sprite>(cpuJanken.Tostring());
-
         cpuJanken = Random.RandomRange(1,4);
+        image.sprite = Resources.Load<Sprite>(Random.RandomRange(1, 4).ToString());
 
         if (cpuJanken == 1) 
         {
@@ -56,7 +73,8 @@ public class JankenManagerM : MonoBehaviour
     }
     public void judge()
     {
-        if(PlayerJanken == cpuJanken)
+       
+        if (PlayerJanken == cpuJanken)
         {
             Debug.Log("あいこ");
         }
