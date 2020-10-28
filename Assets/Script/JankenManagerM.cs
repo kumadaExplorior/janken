@@ -2,25 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class JankenManagerM : MonoBehaviour
 {
+    //ジャンケン画像
     [SerializeField] Image image;
+    //敵画像
     [SerializeField] Image souri;
 
+    //勝った数テキスト
+    [SerializeField] TextMeshProUGUI winCountText;
+
+    //プレイヤーが出したジャンケン
     int PlayerJanken = 0;
+    //CPUが出したジャンケン
     int cpuJanken = 0;
 
+    //処理待ちフラグ
+    bool stopFlg = false;
 
-   
+    //勝った数
+    int winCount = 0;
+    //負けた数
+    int loseCount = 0;
+
+
+    //起動時一回しか通らない
     private void Start()
     {
+        winCountText.text = winCount.ToString();
+
         Initialized();
     }
 
     //初期化　
     public void Initialized()
     {
+        stopFlg = false;
+
         //相手のジャンケンは非表示
         image.gameObject.SetActive(false);
 
@@ -31,6 +51,13 @@ public class JankenManagerM : MonoBehaviour
     //敵のアニメーション
     public IEnumerator EnemyAction()
     {
+        if(stopFlg == true)
+        {
+            yield break;
+        }
+
+        stopFlg = true;
+
         yield return new WaitForSeconds(1f);
 
         //相手のジャンケン出目
@@ -45,6 +72,8 @@ public class JankenManagerM : MonoBehaviour
 
         //ジャンケン判定
         CpuAction();
+
+        winCountText.text = winCount.ToString();
 
         //3秒後にもとに戻す
         yield return new WaitForSeconds(3f);
@@ -92,8 +121,7 @@ public class JankenManagerM : MonoBehaviour
         judge();
     }
     public void judge()
-    {
-       
+    {       
         if (PlayerJanken == cpuJanken)
         {
             Debug.Log("あいこ");
@@ -102,35 +130,49 @@ public class JankenManagerM : MonoBehaviour
         {
             if(cpuJanken == 2)
             {
-                Debug.Log("勝ち");
+                Win();
             }
             else
             {
-                Debug.Log("負け");
+                Lose();
             }
         }
         else if(PlayerJanken == 2)
         {
             if(cpuJanken == 1)
             {
-                Debug.Log("負け");
+                Lose();
             }
             else{
-                Debug.Log("勝ち");
+                Win();
+
             }
         }
         else if(PlayerJanken == 3)
         {
             if(cpuJanken == 1)
             {
-                Debug.Log("勝ち");
+                Win();
             }
             else
             {
-                Debug.Log("負け");
+                Lose();
             }
         }
 
+    }
+
+    public void Win()
+    {
+        winCount++;
+        Debug.Log("勝ち:" + winCount);
+    }
+
+    public void Lose()
+    {
+        loseCount++;
+        Debug.Log("負け:" + loseCount);
+       
     }
 
 
