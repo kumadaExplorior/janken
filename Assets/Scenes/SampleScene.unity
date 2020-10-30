@@ -238,8 +238,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -55.8, y: 9.3}
-  m_SizeDelta: {x: 1151.7, y: 566.8}
+  m_AnchoredPosition: {x: 77.6, y: 2.4}
+  m_SizeDelta: {x: 884.8131, y: 552.9954}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &911194613
 MonoBehaviour:
@@ -260,11 +260,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "KOKOMADE KORETARA\nTORIAEZU OK\n\nFROM KUMADA \n\n9/17\n\nMADA KONOSAKIHA\nJUNBIDEKITEIMASEN\n\nARIGATOU
-    KUMADAKUN! BY MICHIKO"
+  m_text: "\u3042\u3042\u3042\u3042\u3042"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26ba0e2ab975247fdadfca1315ef8648, type: 2}
+  m_sharedMaterial: {fileID: 4901086527308914813, guid: 26ba0e2ab975247fdadfca1315ef8648,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -289,8 +289,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 191.69
+  m_fontSizeBase: 191.69
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -330,12 +330,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 911194613}
-    characterCount: 116
+    characterCount: 5
     spriteCount: 0
-    spaceCount: 18
-    wordCount: 15
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 11
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
