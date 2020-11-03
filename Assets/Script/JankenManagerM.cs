@@ -14,6 +14,8 @@ public class JankenManagerM : MonoBehaviour
     //勝った数テキスト
     [SerializeField] TextMeshProUGUI winCountText;
 
+    [SerializeField] TextMeshProUGUI HanteiText;
+
     //プレイヤーが出したジャンケン
     int PlayerJanken = 0;
     //CPUが出したジャンケン
@@ -26,7 +28,8 @@ public class JankenManagerM : MonoBehaviour
     int winCount = 0;
     //負けた数
     int loseCount = 0;
-
+    //判定
+    int Hantei = 0;
 
     //起動時一回しか通らない
     private void Start()
@@ -51,7 +54,7 @@ public class JankenManagerM : MonoBehaviour
     //敵のアニメーション
     public IEnumerator EnemyAction()
     {
-        if(stopFlg == true)
+        if (stopFlg == true)
         {
             yield break;
         }
@@ -75,60 +78,70 @@ public class JankenManagerM : MonoBehaviour
 
         winCountText.text = winCount.ToString();
 
-        //3秒後にもとに戻す
-        yield return new WaitForSeconds(3f);
+
+        //2秒後にもとに戻す
+        yield return new WaitForSeconds(2f);
         Initialized();
+
+        //判定
+        yield return new WaitForSeconds(3f);
+        image.gameObject.SetActive(true);
+        HanteiText.text = Hantei.ToString();
+
+
+        //4秒後にもとに戻す
+        yield return new WaitForSeconds(4f);
+        Initialized();
+
+
     }
-
-
     public void ButtonOshita()
-	{
-		Debug.Log("押したよ");
-	}
-    public void GuuButton()
     {
-    	Debug.Log("グー");
+        Debug.Log("押したよ");
+    }
+    public void GuuButton()
+    {   Debug.Log("グー");
         PlayerJanken = 1;
         StartCoroutine(EnemyAction());
     }
     public void CyokiButton()
     {
-    	Debug.Log("チョキ");
-    	PlayerJanken = 2;
+        Debug.Log("チョキ");
+        PlayerJanken = 2;
         StartCoroutine(EnemyAction());
-    }  
+    }
     public void ParButton()
     {
         Debug.Log("パー");
-    	PlayerJanken = 3;
+        PlayerJanken = 3;
         StartCoroutine(EnemyAction());
     }
 
     public void CpuAction()
     {
-        if (cpuJanken == 1) 
+        if (cpuJanken == 1)
         {
             Debug.Log("cpuJanken" + "グー");
         }
-        else if(cpuJanken == 2)   
+        else if (cpuJanken == 2)
         {
             Debug.Log("cpuJanken" + "チョキ");
         }
-        else if(cpuJanken == 3)
+        else if (cpuJanken == 3)
         {
             Debug.Log("cpuJanken" + "パー");
         }
         judge();
     }
     public void judge()
-    {       
+    {
         if (PlayerJanken == cpuJanken)
         {
             Debug.Log("あいこ");
         }
-        else if(PlayerJanken == 1)
+        else if (PlayerJanken == 1)
         {
-            if(cpuJanken == 2)
+            if (cpuJanken == 2)
             {
                 Win();
             }
@@ -137,20 +150,21 @@ public class JankenManagerM : MonoBehaviour
                 Lose();
             }
         }
-        else if(PlayerJanken == 2)
+        else if (PlayerJanken == 2)
         {
-            if(cpuJanken == 1)
+            if (cpuJanken == 1)
             {
                 Lose();
             }
-            else{
+            else
+            {
                 Win();
 
             }
         }
-        else if(PlayerJanken == 3)
+        else if (PlayerJanken == 3)
         {
-            if(cpuJanken == 1)
+            if (cpuJanken == 1)
             {
                 Win();
             }
@@ -159,6 +173,7 @@ public class JankenManagerM : MonoBehaviour
                 Lose();
             }
         }
+
 
     }
 
@@ -166,14 +181,25 @@ public class JankenManagerM : MonoBehaviour
     {
         winCount++;
         Debug.Log("勝ち:" + winCount);
+        Mibun();
     }
 
     public void Lose()
     {
         loseCount++;
         Debug.Log("負け:" + loseCount);
-       
+        Mibun();
     }
 
-
+    public void Mibun()
+    {
+        //1回負けたら平民
+        if (winCount - loseCount == -1)
+        {
+            Hantei.Text == ("Heimin");
+            Debug.Log("平民");
+        }
+    }
+　　
+   
 }
