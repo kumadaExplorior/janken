@@ -35,6 +35,7 @@ public class JankenManagerM : MonoBehaviour
     private void Start()
     {
         winCountText.text = winCount.ToString();
+        HanteiText.text = "";
 
         Initialized();
     }
@@ -44,9 +45,17 @@ public class JankenManagerM : MonoBehaviour
     {
         stopFlg = false;
 
+        //伏せるアクション
+        EnbemyCloseAction();
+    }
+
+    //敵が伏せるアクション
+    public void EnbemyCloseAction()
+    {
         //相手のジャンケンは非表示
         image.gameObject.SetActive(false);
-
+        //相手の身分テキストは非表示
+        HanteiText.gameObject.SetActive(false);
         //敵初期画像
         souri.sprite = Resources.Load<Sprite>("Souri1");
     }
@@ -61,40 +70,24 @@ public class JankenManagerM : MonoBehaviour
 
         stopFlg = true;
 
+        //敵ジャンケン処理
         yield return new WaitForSeconds(1f);
-
-        //相手のジャンケン出目
-        cpuJanken = Random.RandomRange(1, 4);
-
-        //敵出目表示
-        image.gameObject.SetActive(true);
-        image.sprite = Resources.Load<Sprite>(cpuJanken.ToString());
-
-        //敵画像変更
-        souri.sprite = Resources.Load<Sprite>("Souri2");
-
-        //ジャンケン判定
         CpuAction();
+      
+        //伏せる
+        yield return new WaitForSeconds(2f);
+        EnbemyCloseAction();
 
-        winCountText.text = winCount.ToString();
+        //身分判定　上げて表示
+        yield return new WaitForSeconds(1f);
+        Mibun();
 
-
-        //2秒後にもとに戻す
+        //初期化
         yield return new WaitForSeconds(2f);
         Initialized();
-
-        //判定
-        yield return new WaitForSeconds(3f);
-        image.gameObject.SetActive(true);
-        HanteiText.text = Hantei.ToString();
-
-
-        //4秒後にもとに戻す
-        yield return new WaitForSeconds(4f);
-        Initialized();
-
-
     }
+
+
     public void ButtonOshita()
     {
         Debug.Log("押したよ");
@@ -117,8 +110,19 @@ public class JankenManagerM : MonoBehaviour
         StartCoroutine(EnemyAction());
     }
 
+    //敵のジャンケンアクション
     public void CpuAction()
     {
+        //相手のジャンケン出目
+        cpuJanken = Random.RandomRange(1, 4);
+
+        //敵画像変更 上げる
+        souri.sprite = Resources.Load<Sprite>("Souri2");
+
+        //敵出目表示
+        image.gameObject.SetActive(true);
+        image.sprite = Resources.Load<Sprite>(cpuJanken.ToString());
+
         if (cpuJanken == 1)
         {
             Debug.Log("cpuJanken" + "グー");
@@ -131,9 +135,13 @@ public class JankenManagerM : MonoBehaviour
         {
             Debug.Log("cpuJanken" + "パー");
         }
-        judge();
+
+        //勝敗判定
+        Judge();
     }
-    public void judge()
+
+    //勝敗判定
+    public void Judge()
     {
         if (PlayerJanken == cpuJanken)
         {
@@ -177,27 +185,37 @@ public class JankenManagerM : MonoBehaviour
 
     }
 
+    //勝った処理
     public void Win()
     {
         winCount++;
+        //テキスト更新
+        winCountText.text = winCount.ToString();
         Debug.Log("勝ち:" + winCount);
-        Mibun();
     }
 
+    //負けた処理
     public void Lose()
     {
         loseCount++;
         Debug.Log("負け:" + loseCount);
-        Mibun();
     }
 
     public void Mibun()
     {
+        //敵画像変更　額上げる
+        souri.sprite = Resources.Load<Sprite>("Souri2");
+        //判定テキスト表示
+        HanteiText.gameObject.SetActive(true);
+
         //1回負けたら平民
         if (winCount - loseCount == -1)
         {
-            Hantei.Text == ("Heimin");
+            HanteiText.text = "平民";
             Debug.Log("平民");
+        }else
+        {
+            HanteiText.text = "作成中";
         }
     }
 　　
