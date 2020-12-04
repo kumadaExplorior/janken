@@ -16,6 +16,8 @@ public class JankenManagerM : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI HanteiText;
 
+    [SerializeField] List<GameObject> buttons;
+
     //プレイヤーが出したジャンケン
     int PlayerJanken = 0;
     //CPUが出したジャンケン
@@ -44,6 +46,11 @@ public class JankenManagerM : MonoBehaviour
     public void Initialized()
     {
         stopFlg = false;
+
+        foreach(var button in buttons)
+        {
+            button.SetActive(true);
+        }
 
         //伏せるアクション
         EnbemyCloseAction();
@@ -85,6 +92,7 @@ public class JankenManagerM : MonoBehaviour
         //初期化
         yield return new WaitForSeconds(2f);
         Initialized();
+
     }
 
 
@@ -95,19 +103,36 @@ public class JankenManagerM : MonoBehaviour
     public void GuuButton()
     {   Debug.Log("グー");
         PlayerJanken = 1;
-        StartCoroutine(EnemyAction());
+        UnitAction();
     }
     public void CyokiButton()
     {
         Debug.Log("チョキ");
         PlayerJanken = 2;
-        StartCoroutine(EnemyAction());
+        UnitAction();
     }
     public void ParButton()
     {
         Debug.Log("パー");
         PlayerJanken = 3;
+        UnitAction();
+    }
+
+    public void UnitAction()
+    {
+        PlayerAction();
         StartCoroutine(EnemyAction());
+    }
+
+    public void PlayerAction()
+    {
+        foreach(var button in buttons)
+        {
+            if(button.GetComponent<JankenData>().id != PlayerJanken)
+            {
+                button.SetActive(false);
+            }
+        }
     }
 
     //敵のジャンケンアクション
@@ -211,11 +236,31 @@ public class JankenManagerM : MonoBehaviour
         //1回負けたら平民
         if (winCount - loseCount == -1)
         {
-            HanteiText.text = "平民";
+            HanteiText.text = "平\n民";
             Debug.Log("平民");
-        }else
+        }
+        else if (winCount - loseCount == -2)
         {
-            HanteiText.text = "作成中";
+            HanteiText.text = "貧\n民";
+            Debug.Log("貧民");
+        }
+        else if (winCount - loseCount == -3)
+        {
+            HanteiText.text = "大\n貧\n民";
+            Debug.Log("大貧民");
+        }
+        else if (winCount - loseCount == 1)
+        {
+            HanteiText.text = "富\n豪";
+            Debug.Log("富豪");
+        }
+        else if (PlayerJanken == cpuJanken)
+        {
+            Initialized();
+        }
+        else
+        {
+            HanteiText.text = "作\n成\n中";
         }
     }
 　　

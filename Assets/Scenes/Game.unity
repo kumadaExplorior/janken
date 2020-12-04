@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &154876719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -894,6 +894,7 @@ GameObject:
   - component: {fileID: 630738976}
   - component: {fileID: 630738975}
   - component: {fileID: 630738974}
+  - component: {fileID: 630738977}
   m_Layer: 5
   m_Name: GUU
   m_TagString: Untagged
@@ -1011,6 +1012,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630738972}
   m_CullTransparentMesh: 0
+--- !u!114 &630738977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630738972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ad1f10d6adc49a28629fe5bda30a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
 --- !u!1 &1151979045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1072,10 @@ MonoBehaviour:
   souri: {fileID: 328773609}
   winCountText: {fileID: 171533312}
   HanteiText: {fileID: 154876720}
+  buttons:
+  - {fileID: 630738972}
+  - {fileID: 1756795327}
+  - {fileID: 1245843362}
 --- !u!1 &1190904368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1171,7 @@ GameObject:
   - component: {fileID: 1245843366}
   - component: {fileID: 1245843365}
   - component: {fileID: 1245843364}
+  - component: {fileID: 1245843367}
   m_Layer: 5
   m_Name: PAR
   m_TagString: Untagged
@@ -1270,6 +1289,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245843362}
   m_CullTransparentMesh: 0
+--- !u!114 &1245843367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245843362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ad1f10d6adc49a28629fe5bda30a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3
 --- !u!1 &1756795327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,6 +1314,7 @@ GameObject:
   - component: {fileID: 1756795331}
   - component: {fileID: 1756795330}
   - component: {fileID: 1756795329}
+  - component: {fileID: 1756795332}
   m_Layer: 5
   m_Name: CHOKI
   m_TagString: Untagged
@@ -1399,6 +1432,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756795327}
   m_CullTransparentMesh: 0
+--- !u!114 &1756795332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756795327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ad1f10d6adc49a28629fe5bda30a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
 --- !u!1 &2032657653
 GameObject:
   m_ObjectHideFlags: 0
