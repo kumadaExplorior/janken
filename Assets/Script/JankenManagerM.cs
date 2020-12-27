@@ -18,6 +18,10 @@ public class JankenManagerM : MonoBehaviour
 
     [SerializeField] List<GameObject> buttons;
 
+    //highscore
+
+    [SerializeField] TextMeshProUGUI highScore;
+
     //プレイヤーが出したジャンケン
     int PlayerJanken = 0;
     //CPUが出したジャンケン
@@ -25,13 +29,16 @@ public class JankenManagerM : MonoBehaviour
 
     //処理待ちフラグ
     bool stopFlg = false;
+    bool winFlg = false;
 
     //勝った数
     int winCount = 0;
     //負けた数
     int loseCount = 0;
+    
     //判定
     int Hantei = 0;
+
 
     //起動時一回しか通らない
     private void Start()
@@ -217,6 +224,9 @@ public class JankenManagerM : MonoBehaviour
         //テキスト更新
         winCountText.text = winCount.ToString();
         Debug.Log("勝ち:" + winCount);
+
+        winFlg = true;
+        Rensyou();
     }
 
     //負けた処理
@@ -224,6 +234,28 @@ public class JankenManagerM : MonoBehaviour
     {
         loseCount++;
         Debug.Log("負け:" + loseCount);
+
+        winFlg = false;
+        Rensyou();
+
+    }
+
+    public void Rensyou()
+    {
+        if (winFlg = true)
+        {
+            highScore.text = PlayerPrefs.GetInt("SCORE", 0).ToString();
+            highScore++;
+            PlayerPrefs.GetInt("SCORE", highScore);
+            Debug.Log(PlayerPrefs.GetInt("SCORE", 0));
+        }
+        else
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.DeleteKey("SCORE");
+        }
+
+
     }
 
     public void Mibun()
