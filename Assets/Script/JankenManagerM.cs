@@ -29,10 +29,10 @@ public class JankenManagerM : MonoBehaviour
 
     //処理待ちフラグ
     bool stopFlg = false;
-    bool winFlg = false;
 
     //勝った数
     int winCount = 0;
+    int consecutiveCount = 0;
     //負けた数
     int loseCount = 0;
     
@@ -108,19 +108,17 @@ public class JankenManagerM : MonoBehaviour
         Debug.Log("押したよ");
     }
     public void GuuButton()
-    {   Debug.Log("グー");
+    {
         PlayerJanken = 1;
         UnitAction();
     }
     public void CyokiButton()
     {
-        Debug.Log("チョキ");
         PlayerJanken = 2;
         UnitAction();
     }
     public void ParButton()
     {
-        Debug.Log("パー");
         PlayerJanken = 3;
         UnitAction();
     }
@@ -165,7 +163,7 @@ public class JankenManagerM : MonoBehaviour
         }
         else if (cpuJanken == 3)
         {
-            Debug.Log("cpuJanken" + "パー");
+            //Debug.Log("cpuJanken" + "パー");
         }
 
         //勝敗判定
@@ -221,11 +219,10 @@ public class JankenManagerM : MonoBehaviour
     public void Win()
     {
         winCount++;
+        consecutiveCount++;
         //テキスト更新
         winCountText.text = winCount.ToString();
         Debug.Log("勝ち:" + winCount);
-
-        winFlg = true;
         Rensyou();
     }
 
@@ -233,28 +230,35 @@ public class JankenManagerM : MonoBehaviour
     public void Lose()
     {
         loseCount++;
+        consecutiveCount = 0;//連勝記録は０に
         Debug.Log("負け:" + loseCount);
-
-        winFlg = false;
         Rensyou();
 
     }
 
     public void Rensyou()
     {
-        if (winFlg = true)
-        {
-            highScore.text = PlayerPrefs.GetInt("SCORE", 0).ToString();
-            highScore++;
-            PlayerPrefs.GetInt("SCORE", highScore);
-            Debug.Log(PlayerPrefs.GetInt("SCORE", 0));
-        }
-        else
-        {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.DeleteKey("SCORE");
-        }
+        //今までのハイスコア取得
+        int highScoreCount = PlayerPrefs.GetInt("SCORE", 0);
 
+        //ハイスコアかどうか
+        bool isRensyou = consecutiveCount > highScoreCount;
+
+        Debug.Log("consecutiveCount:" + consecutiveCount + "  highScoreCount:"+ highScoreCount);
+
+        if (isRensyou == true)
+        {
+            //highScore.text = PlayerPrefs.GetInt("SCORE", 0).ToString();
+            //highScore++;
+            //PlayerPrefs.GetInt("SCORE", highScore);
+            //Debug.Log(PlayerPrefs.GetInt("SCORE", 0));
+
+            //テキスト設定
+            //highScore.text = highScoreNumber.ToString();
+            Debug.Log("連勝記録セット");
+            //新たにハイスコア設定
+            PlayerPrefs.SetInt("SCORE", highScoreCount + 1);
+        }
 
     }
 
