@@ -14,6 +14,8 @@ public class JankenManagerM : MonoBehaviour
     //勝った数テキスト
     [SerializeField] TextMeshProUGUI winCountText;
 
+    [SerializeField] TextMeshProUGUI highScoreCountText;
+
     [SerializeField] TextMeshProUGUI HanteiText;
 
     [SerializeField] List<GameObject> buttons;
