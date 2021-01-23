@@ -18,7 +18,11 @@ public class JankenManagerM : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI HanteiText;
 
+    [SerializeField] TextMeshProUGUI SouriText;
+
     [SerializeField] List<GameObject> buttons;
+
+    
 
     //highscore
 
@@ -45,6 +49,7 @@ public class JankenManagerM : MonoBehaviour
     //起動時一回しか通らない
     private void Start()
     {
+
         winCountText.text = winCount.ToString();
         HanteiText.text = "";
 
@@ -54,6 +59,8 @@ public class JankenManagerM : MonoBehaviour
     //初期化　
     public void Initialized()
     {
+        SouriText.gameObject.SetActive(false);
+
         stopFlg = false;
 
         foreach(var button in buttons)
@@ -79,6 +86,7 @@ public class JankenManagerM : MonoBehaviour
     //敵のアニメーション
     public IEnumerator EnemyAction()
     {
+
         if (stopFlg == true)
         {
             yield break;
@@ -272,25 +280,42 @@ public class JankenManagerM : MonoBehaviour
         HanteiText.gameObject.SetActive(true);
 
         //1回負けたら平民
-        if (winCount - loseCount == -1)
+        if (winCount - loseCount == 0)
         {
+            SouriText.gameObject.SetActive(false);
             HanteiText.text = "平\n民";
             Debug.Log("平民");
         }
-        else if (winCount - loseCount == -2)
+        else if (winCount - loseCount == -1)
         {
+            SouriText.gameObject.SetActive(false);
             HanteiText.text = "貧\n民";
             Debug.Log("貧民");
         }
-        else if (winCount - loseCount == -3)
+        else if (winCount - loseCount == -2)
         {
+            SouriText.gameObject.SetActive(false);
             HanteiText.text = "大\n貧\n民";
             Debug.Log("大貧民");
         }
+
         else if (winCount - loseCount == 1)
         {
+            SouriText.gameObject.SetActive(false);
             HanteiText.text = "富\n豪";
             Debug.Log("富豪");
+        }
+        else if (winCount - loseCount == 2)
+        {
+            SouriText.gameObject.SetActive(false);
+            HanteiText.text = "大\n富\n豪";
+            Debug.Log("大富豪");
+        }
+        else if (winCount - loseCount == 3)
+        {
+            SouriText.gameObject.SetActive(true);
+            HanteiText.text = "し\nゅ\nご\nい";
+            Debug.Log("総理");
         }
         else if (PlayerJanken == cpuJanken)
         {
