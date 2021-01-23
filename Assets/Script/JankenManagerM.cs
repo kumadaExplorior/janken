@@ -14,6 +14,8 @@ public class JankenManagerM : MonoBehaviour
     //勝った数テキスト
     [SerializeField] TextMeshProUGUI winCountText;
 
+    [SerializeField] TextMeshProUGUI loseCountText;
+
     [SerializeField] TextMeshProUGUI highScoreCountText;
 
     [SerializeField] TextMeshProUGUI HanteiText;
@@ -22,7 +24,7 @@ public class JankenManagerM : MonoBehaviour
 
     [SerializeField] List<GameObject> buttons;
 
-    
+
 
     //highscore
 
@@ -45,14 +47,13 @@ public class JankenManagerM : MonoBehaviour
     //判定
     int Hantei = 0;
 
-
     //起動時一回しか通らない
     private void Start()
     {
 
         winCountText.text = winCount.ToString();
         HanteiText.text = "";
-
+        highScore.text = PlayerPrefs.GetInt("SCORE", 0).ToString();
         Initialized();
     }
 
@@ -96,7 +97,7 @@ public class JankenManagerM : MonoBehaviour
 
         //敵ジャンケン処理
         yield return new WaitForSeconds(1f);
-        CpuAction();
+        bool isWin = CpuAction();
       
         //伏せる
         yield return new WaitForSeconds(2f);
@@ -105,6 +106,7 @@ public class JankenManagerM : MonoBehaviour
         //身分判定　上げて表示
         yield return new WaitForSeconds(1f);
         Mibun();
+        CommentSet(isWin);
 
         //初期化
         yield return new WaitForSeconds(2f);
@@ -151,7 +153,7 @@ public class JankenManagerM : MonoBehaviour
     }
 
     //敵のジャンケンアクション
-    public void CpuAction()
+    public bool CpuAction()
     {
         //相手のジャンケン出目
         cpuJanken = Random.RandomRange(1, 4);
@@ -177,36 +179,37 @@ public class JankenManagerM : MonoBehaviour
         }
 
         //勝敗判定
-        Judge();
+        return Judge();
     }
 
     //勝敗判定
-    public void Judge()
+    public bool Judge()
     {
         if (PlayerJanken == cpuJanken)
         {
             Debug.Log("あいこ");
+            return false;
         }
         else if (PlayerJanken == 1)
         {
             if (cpuJanken == 2)
             {
-                Win();
+                return Win();
             }
             else
             {
-                Lose();
+                return Lose();
             }
         }
         else if (PlayerJanken == 2)
         {
             if (cpuJanken == 1)
             {
-                Lose();
+                return Lose();
             }
             else
             {
-                Win();
+                return Win();
 
             }
         }
@@ -214,19 +217,20 @@ public class JankenManagerM : MonoBehaviour
         {
             if (cpuJanken == 1)
             {
-                Win();
+                return Win();
             }
             else
             {
-                Lose();
+                return Lose();
             }
         }
 
+        return false;
 
     }
 
     //勝った処理
-    public void Win()
+    public bool Win()
     {
         winCount++;
         consecutiveCount++;
@@ -234,16 +238,28 @@ public class JankenManagerM : MonoBehaviour
         winCountText.text = winCount.ToString();
         Debug.Log("勝ち:" + winCount);
         Rensyou();
+
+        return true;
     }
 
     //負けた処理
-    public void Lose()
+    public bool Lose()
     {
         loseCount++;
         consecutiveCount = 0;//連勝記録は０に
+
+        loseCountText.text = loseCount.ToString();
+
         Debug.Log("負け:" + loseCount);
         Rensyou();
 
+        return false;
+
+    }
+
+    public void Aiko()
+    {
+        consecutiveCount = 0;//連勝記録は０に
     }
 
     public void Rensyou()
@@ -258,13 +274,12 @@ public class JankenManagerM : MonoBehaviour
 
         if (isRensyou == true)
         {
-            //highScore.text = PlayerPrefs.GetInt("SCORE", 0).ToString();
-            //highScore++;
-            //PlayerPrefs.GetInt("SCORE", highScore);
-            //Debug.Log(PlayerPrefs.GetInt("SCORE", 0));
+            highScore.text = PlayerPrefs.GetInt("SCORE", 0).ToString();
+            PlayerPrefs.GetInt("SCORE", consecutiveCount);
+            Debug.Log(PlayerPrefs.GetInt("SCORE", 0));
 
             //テキスト設定
-            //highScore.text = highScoreNumber.ToString();
+            highScore.text = consecutiveCount.ToString();
             Debug.Log("連勝記録セット");
             //新たにハイスコア設定
             PlayerPrefs.SetInt("SCORE", highScoreCount + 1);
@@ -282,38 +297,34 @@ public class JankenManagerM : MonoBehaviour
         //1回負けたら平民
         if (winCount - loseCount == 0)
         {
-            SouriText.gameObject.SetActive(false);
             HanteiText.text = "平\n民";
             Debug.Log("平民");
         }
         else if (winCount - loseCount == -1)
         {
-            SouriText.gameObject.SetActive(false);
             HanteiText.text = "貧\n民";
             Debug.Log("貧民");
         }
         else if (winCount - loseCount == -2)
         {
-            SouriText.gameObject.SetActive(false);
             HanteiText.text = "大\n貧\n民";
             Debug.Log("大貧民");
         }
 
         else if (winCount - loseCount == 1)
         {
-            SouriText.gameObject.SetActive(false);
+
             HanteiText.text = "富\n豪";
             Debug.Log("富豪");
         }
         else if (winCount - loseCount == 2)
         {
-            SouriText.gameObject.SetActive(false);
             HanteiText.text = "大\n富\n豪";
             Debug.Log("大富豪");
         }
         else if (winCount - loseCount == 3)
         {
-            SouriText.gameObject.SetActive(true);
+
             HanteiText.text = "し\nゅ\nご\nい";
             Debug.Log("総理");
         }
@@ -324,8 +335,40 @@ public class JankenManagerM : MonoBehaviour
         else
         {
             HanteiText.text = "作\n成\n中";
-        }
+        }      
     }
-　　
-   
+
+
+    public void CommentSet(bool iswin)
+    {
+        SouriText.gameObject.SetActive(true);
+
+        if(winCount == 20)
+        {
+            Reset();
+            SouriText.text = "記憶が。。。";
+        }
+        else if(consecutiveCount == 3)
+        {
+            SouriText.text = "君がそうだ";
+        }else if(winCount == 10)
+        {
+            SouriText.text = "なんか";
+        }
+        else if (iswin)
+        {
+            SouriText.text = "やるな";
+        }else
+        {
+            SouriText.text = "よわ";
+        }
+
+    }
+
+    public void Reset()
+    {
+        //初期値に戻す
+        winCount = 0;
+        loseCount = 0;
+    }
 }
