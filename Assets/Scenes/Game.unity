@@ -772,8 +772,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64, y: 744.6}
-  m_SizeDelta: {x: 1148.9565, y: 317.43726}
+  m_AnchoredPosition: {x: 248.71, y: 417.1}
+  m_SizeDelta: {x: 649.3363, y: 121.69531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &243551368
 MonoBehaviour:
@@ -794,7 +794,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u541B\u304C\u7DCF\u7406\u5927\u81E3\uFF01\uFF01\uFF01\uFF01\uFF01"
+  m_text: "\u541B\u304C\u7DCF\u7406\u5927\u81E3\uFF01\uFF01\uFF01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26ba0e2ab975247fdadfca1315ef8648, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 56efd0110f81544429c9c54f820207c4, type: 2}
@@ -822,14 +822,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 100
+  m_fontSize: 72
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 243551368}
-    characterCount: 11
+    characterCount: 9
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

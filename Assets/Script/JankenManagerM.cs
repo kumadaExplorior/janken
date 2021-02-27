@@ -311,6 +311,44 @@ public class JankenManagerM : MonoBehaviour
             Debug.Log("大貧民");
         }
 
+
+        else if (winCount - loseCount == -3)
+        {
+            HanteiText.text = "が\nん\nば";
+        }
+        else if (winCount - loseCount == -4)
+        {
+            HanteiText.text = "次\nは\nぐ\n｜";
+        }
+        else if (winCount - loseCount == -5)
+        {
+            HanteiText.text = "弱\nす\nぎ\n！";
+        }
+        else if (winCount - loseCount == -6)
+        {
+            HanteiText.text = "諦\nめ\nる\nな\n！";
+        }
+        else if (winCount - loseCount == -7)
+        {
+            HanteiText.text = "弱\nす\nぎ\n！";
+        }
+        else if (winCount - loseCount == -8)
+        {
+            HanteiText.text = "諦\nめ\nる\nな\n！";
+        }
+        else if (winCount - loseCount == -9)
+        {
+            HanteiText.text = "逆\nに\nす\nご";
+        }
+        else if (winCount - loseCount == -10)
+        {
+            HanteiText.text = "じ\nゃ\nん\nけ\nん\n奴\n隷";
+        }
+        else if (winCount - loseCount == -11)
+        {
+            HanteiText.text = "ゲ\n｜\nム\nオ\n｜\nバ\n｜";
+        }
+
         else if (winCount - loseCount == 1)
         {
 
@@ -324,18 +362,57 @@ public class JankenManagerM : MonoBehaviour
         }
         else if (winCount - loseCount == 3)
         {
-
+            HanteiText.text = "じ\nゃ\nん\nけ\nん\n大\n臣";
+            Debug.Log("大富豪");
+        }
+        else if (winCount - loseCount == 4)
+        {
             HanteiText.text = "し\nゅ\nご\nい";
-            Debug.Log("総理");
+        }
+
+        else if (winCount - loseCount == 5)
+        {
+            HanteiText.text = "奇\n跡";
+        }
+
+        else if (winCount - loseCount == 6)
+        {
+            HanteiText.text = "天\n才";
+        }
+
+        else if (winCount - loseCount == 7)
+        {
+            HanteiText.text = "ま\nい\nっ\nた";
+        }
+        else if (winCount - loseCount == 8)
+        {
+            HanteiText.text = "最\n強";
+        }
+        else if (winCount - loseCount == 9)
+        {
+            HanteiText.text = "手\n加\n限\nし\nて";
+        }
+        else if (winCount - loseCount == 10)
+        {
+            HanteiText.text = "世\n界\n一\n";
+        }
+        else if (winCount - loseCount == 11)
+        {
+            HanteiText.text = "恋\n愛\n運\n U\n P";
+        }
+
+        else if (winCount - loseCount == 12)
+        {
+            HanteiText.text = "あ\nっ\nぱ\n れ";
+        }
+        else if (winCount - loseCount == 13)
+        {
+            HanteiText.text = "宇\n宙\n一\n";
         }
         else if (PlayerJanken == cpuJanken)
         {
             Initialized();
         }
-        else
-        {
-            HanteiText.text = "作\n成\n中";
-        }      
     }
 
 
@@ -343,26 +420,41 @@ public class JankenManagerM : MonoBehaviour
     {
         SouriText.gameObject.SetActive(true);
 
-        if(winCount == 20)
+        if(winCount == 13)
         {
             Reset();
             SouriText.text = "記憶が。。。";
         }
-        else if(consecutiveCount == 3)
+        if(winCount == -11)
         {
-            SouriText.text = "君がそうだ";
-        }else if(winCount == 10)
+            Reset();
+            SouriText.text = "記憶が。。。";
+        }
+        
+
+        else if (consecutiveCount == 4)
+            {
+                SouriText.text = "君が日本一！！！";
+            }
+            else if(winCount == 7)
         {
-            SouriText.text = "なんか";
+            SouriText.text = "君が総理だ！！！";
+        }
+        else if(winCount == -10)
+        {
+            SouriText.text = "君ならなんでもできる！！！";
         }
         else if (iswin)
         {
             SouriText.text = "やるな";
-        }else
+        }else if (PlayerJanken == cpuJanken)
+        {
+            SouriText.text = "ざわざわ";
+        }
+        else
         {
             SouriText.text = "よわ";
         }
-
     }
 
     public void Reset()
